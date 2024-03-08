@@ -1,3 +1,89 @@
+
+<section id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Let's Get In Touch!</h2>
+                <hr class="primary">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 text-center">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <p>Ready to start your next project with us? That's great! Give us a call or send us an email and we will get back to you as soon as possible!</p>
+                </div>
+            <div class="col-lg-2 col-lg-offset-2 text-center">
+                <a href="https://twitter.com/{{ site.twitter_username }}">
+                    <i class="fa fa-twitter fa-3x wow bounceIn" data-wow-delay=".1s"></i>
+                    <p>{{ site.twitter_username }}</p>
+                </a>
+            </div>
+            <div class="col-lg-2 col-lg-offset-1 text-center">
+                <a href="mailto:{{ site.email }}">
+                <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
+                    <p>{{ site.email }}</p>
+                </a>
+            </div>
+            </div>
+            <div class="col-lg-6 col-md-6 text-center">
+                <div class="formbold-main-wrapper">
+                    <!-- Author: FormBold Team -->
+                    <!-- Learn More: https://formbold.com -->
+                    <div class="formbold-form-wrapper">
+                        <form method="post" id="contact-form">
+                        <div class="formbold-mb-5">
+                          <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            placeholder="Full Name"
+                            class="formbold-form-input"
+                          />
+                        </div>
+                  
+                        <div class="formbold-mb-5">
+                          <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            placeholder="Enter your email"
+                            class="formbold-form-input"
+                          />
+                        </div>
+                  
+                        <div class="formbold-mb-5">
+                          <input
+                            type="text"
+                            name="phone"
+                            id="phone"
+                            placeholder="Enter your Phone Number"
+                            class="formbold-form-input"
+                          />
+                        </div>
+                  
+                        <div class="formbold-mb-5">
+                          <textarea
+                            rows="8"
+                            name="message"
+                            id="message"
+                            placeholder="Please briefly enter your enquiry"
+                            class="formbold-form-input"
+                          ></textarea>
+                        </div>
+                  
+                        <div>
+                          <button class="formbold-btn">Submit</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+            </div>            
+        </div>
+    </div>
+</section>
+
 <section id="contact">
     <div class="container">
         <div class="row">
@@ -26,4 +112,53 @@
         </div>
 
     </div>
+  
 </section>
+
+<script>
+    // Process contact form
+    $('#contact-form').submit(function(event) {
+      event.preventDefault();
+      $('#feedback').html('');
+      setTimeout(function() {
+          // Get data
+        var data = {
+          'entry.1264051134': $('#name').val(),
+          'entry.1480040396': $('#email').val(),
+          'entry.443303985': $('#phone').val(),
+          'entry.1254525160': $('#message').val()
+        };
+    
+        // Validate form
+        var formSuccess = true;
+        Object.keys(data).forEach(function(key, index) {
+          if (!data[key]) {
+            formSuccess = false;
+            $('#feedback').html('<label class="text-danger">Please complete all fields</label>');
+          }
+        });
+    
+        if (formSuccess) {
+          // Send request
+          $.ajax({
+            url: 'https://docs.google.com/forms/u/2/d/e/1FAIpQLSe3Nb-P2S7voHHysZy2a5U-NszHOJZBNbGrkDOsDDOUKEPatg/formResponse',
+            type: 'POST',
+            crossDomain: true,
+            dataType: "xml",
+            data: data,
+            success: function(jqXHR, textStatus, errorThrown) {
+              console.log('Enter on success');
+              $('#feedback').html('<label class="text-success"><h1>Message sent! Our contact team will contact you soon</h1></label>');
+              $('#contact-form').css("visibility", "hidden");
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              console.log('Enter on error');
+              $('#feedback').html('<label class="text-success"><h1>Message sent! Our contact team will contact you soon</h1></label>');
+              $('#contact-form').css("visibility", "hidden");
+            }
+          });
+        }
+      }, 300);
+    });
+    
+    </script>
