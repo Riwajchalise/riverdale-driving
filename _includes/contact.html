@@ -32,21 +32,20 @@
                     <!-- Author: FormBold Team -->
                     <!-- Learn More: https://formbold.com -->
                     <div class="formbold-form-wrapper">
-                        <form method="post" id="contact-form">
+                        <form method="POST" action="https://script.google.com/macros/s/AKfycbw_wncpGjoZb9jaIkLkDpeIk3dSz8b7j4opmPrtHF9Iem3ewQEvzjo0--cvw-wxDYQb/exec" id="contact-form">
                         <div class="formbold-mb-5">
                           <input
                             type="text"
-                            name="name"
+                            name="Name"
                             id="name"
                             placeholder="Full Name"
                             class="formbold-form-input"
                           />
                         </div>
-                  
                         <div class="formbold-mb-5">
                           <input
                             type="email"
-                            name="email"
+                            name="Email"
                             id="email"
                             placeholder="Enter your email"
                             class="formbold-form-input"
@@ -56,7 +55,7 @@
                         <div class="formbold-mb-5">
                           <input
                             type="text"
-                            name="phone"
+                            name="Phone"
                             id="phone"
                             placeholder="Enter your Phone Number"
                             class="formbold-form-input"
@@ -66,7 +65,7 @@
                         <div class="formbold-mb-5">
                           <textarea
                             rows="8"
-                            name="message"
+                            name="Message"
                             id="message"
                             placeholder="Please briefly enter your enquiry"
                             class="formbold-form-input"
@@ -116,49 +115,35 @@
 </section>
 
 <script>
-    // Process contact form
-    $('#contact-form').submit(function(event) {
-      event.preventDefault();
-      $('#feedback').html('');
-      setTimeout(function() {
-          // Get data
-        var data = {
-          'entry.1264051134': $('#name').val(),
-          'entry.1480040396': $('#email').val(),
-          'entry.443303985': $('#phone').val(),
-          'entry.1254525160': $('#message').val()
-        };
-    
-        // Validate form
-        var formSuccess = true;
-        Object.keys(data).forEach(function(key, index) {
-          if (!data[key]) {
-            formSuccess = false;
-            $('#feedback').html('<label class="text-danger">Please complete all fields</label>');
-          }
-        });
-    
-        if (formSuccess) {
-          // Send request
-          $.ajax({
-            url: 'https://docs.google.com/forms/u/2/d/e/1FAIpQLSe3Nb-P2S7voHHysZy2a5U-NszHOJZBNbGrkDOsDDOUKEPatg/formResponse',
-            type: 'POST',
-            crossDomain: true,
-            dataType: "xml",
-            data: data,
-            success: function(jqXHR, textStatus, errorThrown) {
-              console.log('Enter on success');
-              $('#feedback').html('<label class="text-success"><h1>Message sent! Our contact team will contact you soon</h1></label>');
-              $('#contact-form').css("visibility", "hidden");
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-              console.log('Enter on error');
-              $('#feedback').html('<label class="text-success"><h1>Message sent! Our contact team will contact you soon</h1></label>');
-              $('#contact-form').css("visibility", "hidden");
-            }
-          });
-        }
-      }, 300);
+   window.addEventListener("load", function() {
+  // Get the form element by its ID
+  const form = document.getElementById('contact-form');
+
+  // Add a submit event listener to the form
+  form.addEventListener("submit", function(e) {
+    // Prevent the default form submission behavior
+    e.preventDefault();
+
+    // Display an alert message immediately
+    alert("Thank you! We will get back to you soon!");
+
+    // Create a FormData object to collect form data
+    const data = new FormData(form);
+
+    // Get the action URL from the form's action attribute
+    const action = e.target.action;
+
+    // Send a POST request to the specified URL with the form data
+    fetch(action, {
+      method: 'POST',
+      body: data,
+    })
+    .then(() => {
+      // Reset the form fields after a successful request
+      form.reset();
     });
-    
-    </script>
+  });
+});
+
+
+</script>
