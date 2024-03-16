@@ -27,7 +27,7 @@
                 </a>
             </div>
             </div>
-            <div class="col-lg-6 col-md-6 text-center">
+            <div class="col-lg-6 col-md-6">
                 <div class="formbold-main-wrapper">
                     <!-- Author: FormBold Team -->
                     <!-- Learn More: https://formbold.com -->
@@ -61,15 +61,31 @@
                             class="formbold-form-input"
                           />
                         </div>
-                        <label for="Package">What is your enquiry for?</label>
-                        <select name="Package" id="package" class="formbold-mb-5">
-                          <option value="Enquiry only" class="formbold-form-input"></option>
+
+                        <div class="formbold-mb-5">
+                          <input
+                            type="text"
+                            name="Address"
+                            id="address"
+                            placeholder="Enter your Address"
+                            class="formbold-form-input"
+                          />
+                        </div>
+
+                        <div class="formbold-mb-5">
+                        <label for="Package" style="text-align: start;">What is your enquiry for?</label>
+                        <select name="Package" id="package" class="formbold-form-input">
+                          <option value="" class="formbold-form-input">Select One</option>
+                          <option value="Enquiry only" class="formbold-form-input">Enquiry Only - Free</option>
                           <option value="1 lesson">1 Lesson $50</option>
                           <option value="5 Lessons">5 Lessons $225</option>
                           <option value="5 Lessons">10 Lessons $449</option>
                           <option value="5 Lesson + Test">5 Lesson + Driving Test $370</option>
                         </select>
-                  
+                      </div>
+
+                      
+
                         <div class="formbold-mb-5">
                           <textarea
                             rows="8"
